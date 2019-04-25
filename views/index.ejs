@@ -1,7 +1,7 @@
 <% include partials/header %>
 <!--Stepper from Codepen: https://codepen.io/thdeux/pen/zBGNrM-->
 <div class="md-stepper-horizontal orange">
-    <div class="md-step">
+    <div class="md-step active">
         <div class="md-step-circle"><span>1</span></div>
         <div class="md-step-title">Get the access token</div>
         <div class="md-step-bar-left"></div>
@@ -22,9 +22,8 @@
                 Get the access token
             </div>
             <div class="card-body">
-                <p class="card-text">This client redirects the user to the authorization server to log in and
-                    consent the permissions that I'm requesting.</p>
-                <a href="/get/the/token" class="btn btn-primary">Go to the authorization server</a>
+                <p class="card-text">This client gets the access token directly, without any user intervention.</p>
+                <a href="/get/the/token" class="btn btn-primary">Get the access token</a>
             </div>
         </div>
     </div>

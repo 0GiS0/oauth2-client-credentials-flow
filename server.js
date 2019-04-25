@@ -25,16 +25,12 @@ app.get('/', (req, res) => {
 app.get('/get/the/token', (req, res) => {
 
     const Token_Endpoint = `https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/v2.0/token`;
-    const Grant_Type = 'client_credentials';
-    // const Redirect_Uri = 'http://localhost:8000/give/me/the/token';
+    const Grant_Type = 'client_credentials';    
     const Client_Id = process.env.CLIENT_ID;
-    const Client_Secret = 'IdInIO7y!_e&eoGEc3Q!6R!QAlt';
-    // const Scope = 'https://graph.microsoft.com/User.Read';
+    const Client_Secret = process.env.CLIENT_SECRET;
     const Scope = 'https://graph.microsoft.com/.default';
 
-
-    // let body = `grant_type=${Grant_Type}&redirect_uri=${encodeURIComponent(Redirect_Uri)}&client_id=${Client_Id}&client_secret=${Client_Secret}&scope=${encodeURIComponent(Scope)}`;
-    let body = `grant_type=${Grant_Type}&client_id=${Client_Id}&client_secret=${Client_Secret}&scope=${encodeURIComponent(Scope)}`;
+    let body = `grant_type=${Grant_Type}&client_id=${Client_Id}&client_secret=${encodeURIComponent(Client_Secret)}&scope=${encodeURIComponent(Scope)}`;
 
     log.info(`Endpoint: ${Token_Endpoint}`);
 
@@ -44,7 +40,7 @@ app.get('/get/the/token', (req, res) => {
         method: 'POST',
         body: body,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded'           
         }
     }).then(async response => {
 
@@ -62,7 +58,7 @@ app.post('/call/ms/graph', (req, res) => {
     let access_token = JSON.parse(req.body.token).access_token;
 
     const Microsoft_Graph_Endpoint = 'https://graph.microsoft.com/beta';
-    const Acction_That_I_Have_Access_Because_Of_My_Scope = '/me';
+    const Acction_That_I_Have_Access_Because_Of_My_Scope = '/users';
 
     //Call Microsoft Graph with your access token
     fetch(`${Microsoft_Graph_Endpoint}${Acction_That_I_Have_Access_Because_Of_My_Scope}`, {
