@@ -1,14 +1,15 @@
 //Modules
-const express = require('express'),
-    bunyan = require('bunyan'),
-    bodyParser = require('body-parser'),
-    fetch = require("node-fetch");
+import express from 'express';
+import bunyan from 'bunyan';
+import bodyParser from 'body-parser';
+import fetch from 'node-fetch';
 
 //Load values from .env file
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const log = bunyan.createLogger({ name: 'Authorization Code Flow' });
+const log = bunyan.createLogger({ name: 'Client Credentials Flow' });
 
 app.use(express.static('public'));
 
@@ -25,7 +26,7 @@ app.get('/', (req, res) => {
 app.get('/get/the/token', (req, res) => {
 
     const Token_Endpoint = `https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/v2.0/token`;
-    const Grant_Type = 'client_credentials';    
+    const Grant_Type = 'client_credentials';
     const Client_Id = process.env.CLIENT_ID;
     const Client_Secret = process.env.CLIENT_SECRET;
     const Scope = 'https://graph.microsoft.com/.default';
@@ -40,7 +41,7 @@ app.get('/get/the/token', (req, res) => {
         method: 'POST',
         body: body,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'           
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(async response => {
 
